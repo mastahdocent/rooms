@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Nowa rezerwacja
+{% endblock %}
+
+{% block content %}
+    <h1>Nowa rezerwacja: {{ room.name }}</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>
+            <label>
+                Data:
+                <input type="date" name="date"/>
+            </label>
+        </p>
+        <p>
+            <label>
+                Komentarz (opcjonalny):
+                <textarea name="comment"></textarea>
+            </label>
+        </p>
+        <input type="submit" value="Zapisz" />
+    </form>
+{% endblock %}

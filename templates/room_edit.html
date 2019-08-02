@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edycja sali
+{% endblock %}
+
+{% block content %}
+    <h1>Edycja sali</h1>
+
+    <p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label>Nazwa sali:
+            <input type="text" name="name" value="{{ room.name }}"/>
+        </label>
+
+        <label>Pojemność:
+            <input type="number" name="capacity" value="{{ room.capacity }}"/>
+        </label>
+
+        <label>Projektor:
+            <input type="checkbox" name="projector" {% if room.projector %}checked{% endif %} />
+        </label>
+
+        <input type="submit" value="Zapisz"/>
+    </form>
+    </p>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ room.name }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ room.name }}</h1>
+
+    <p>Pojemność: {{ room.capacity }}</p>
+    <p>Projektor:
+        {% if room.projector %}
+            tak
+        {% else %}
+            nie
+        {% endif %}
+    </p>
+    <p>Rezerwacje:</p>
+    <ul>
+        {% if reservations %}
+            {% for reservation in reservations %}
+                <li>{{ reservation.date }}</li>
+            {% endfor %}
+        {% else %}
+            brak rezerwacji
+        {% endif %}
+    </ul>
+
+    <p><a href="{% url 'reservation_add' room.id %}">dodaj rezerwację</a></p>
+{% endblock %}

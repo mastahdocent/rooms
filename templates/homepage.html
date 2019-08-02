@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Strona główna
+{% endblock %}
+
+{% block content %}
+    <h1>Lista sal</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label>Data:
+            <input type="date" name="date" value="{{ selected_date|date:"Y-m-d" }}"/>
+        </label>
+        <input type="submit" value="Wyświetl"/>
+    </form>
+
+    <table>
+        <tr>
+            <td>Nazwa sali</td>
+            <td>Pojemność</td>
+            <td>Projektor</td>
+            <td>Dostępność</td>
+            <td>Akcje</td>
+        </tr>
+        {% for room in rooms %}
+            <tr>
+                <td>
+                    <a href="{% url 'room_detail' room.id %}">
+                        {{ room.name }}
+                    </a>
+                </td>
+                <td>{{ room.capacity }}</td>
+                <td>
+                    {% if room.projector %}
+                        tak
+                    {% else %}
+                        nie
+                    {% endif %}
+                </td>
+                <td>
+                    {% if room.reservations_count > 0 %}
+                        zajęta
+                    {% else %}
+                        wolna
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'reservation_add' room.id %}">zarezerwuj</a> |
+                    <a href="{% url 'room_modify' room.id %}">edytuj</a> |
+                    <a href="{% url 'room_delete' room.id %}">usuń</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <p><a href="{% url 'room_new' %}">utwórz nową salę</a></p>
+{% endblock %}
